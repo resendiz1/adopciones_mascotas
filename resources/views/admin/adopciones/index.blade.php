@@ -3,7 +3,7 @@
 @section('title', 'Adopciones')
 
 @section('content')
-    <h1 class="title">Adopciones</h1>
+    <h1 class="title"><span class="icon"><i class="fas fa-handshake"></i></span> Adopciones</h1>
 
     <table class="table is-fullwidth is-hoverable">
         <thead>
@@ -25,7 +25,7 @@
                                     @if ($adopcion->mascota->fotoPrincipal)
                                         <img src="{{ Storage::url($adopcion->mascota->fotoPrincipal->imagen_path) }}" alt="{{ $adopcion->mascota->nombre }}" style="border-radius: 4px; object-fit: cover;">
                                     @else
-                                        <img src="/defaults/mascota-placeholder.png" alt="Sin foto" style="border-radius: 4px;">
+                                        <img src="/img/default_mascota.png" alt="Sin foto" style="border-radius: 4px;">
                                     @endif
                                 </figure>
                             </div>
@@ -36,11 +36,19 @@
                     <td>{{ $adopcion->shelter?->name ?? '—' }}</td>
                     <td>{{ $adopcion->fecha_aprobacion?->format('d/m/Y') ?? '—' }}</td>
                     <td>
+                        @php
+                            $iconoStatusAdop = match($adopcion->status) {
+                                'activa' => 'fa-check-circle',
+                                'finalizada' => 'fa-flag-checkered',
+                                'cancelada' => 'fa-ban',
+                                default => 'fa-question-circle',
+                            };
+                        @endphp
                         <span class="tag @switch($adopcion->status)
                             @case('activa') is-success @break
                             @case('finalizada') is-info @break
                             @case('cancelada') is-danger @break
-                        @endswitch">{{ ucfirst($adopcion->status) }}</span>
+                        @endswitch"><span class="icon is-small"><i class="fas {{ $iconoStatusAdop }}"></i></span> {{ ucfirst($adopcion->status) }}</span>
                     </td>
                 </tr>
             @endforeach

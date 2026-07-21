@@ -10,8 +10,8 @@
 
             <div class="buttons is-centered mt-5">
                 @guest
-                    <a href="{{ route('register') }}" class="button is-primary is-large">Registrarse</a>
-                    <a href="{{ route('login') }}" class="button is-info is-large">Iniciar sesión</a>
+                    <a href="{{ route('register') }}" class="button is-primary is-large"><span class="icon is-small"><i class="fas fa-user-plus"></i></span> Registrarse</a>
+                    <a href="{{ route('login') }}" class="button is-info is-large"><span class="icon is-small"><i class="fas fa-sign-in-alt"></i></span> Iniciar sesión</a>
                 @else
                     @php
                         $dashboardRoute = match(Auth::user()->role) {
@@ -22,7 +22,7 @@
                         };
                     @endphp
                     <a href="{{ route($dashboardRoute) }}" class="button is-primary is-large">
-                        Ir al dashboard
+                        <span class="icon is-small"><i class="fas fa-tachometer-alt"></i></span> Ir al dashboard
                     </a>
                 @endguest
             </div>

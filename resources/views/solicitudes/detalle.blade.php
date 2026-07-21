@@ -5,12 +5,12 @@
 @section('content')
     <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
-            <li><a href="{{ route('refugio.solicitudes.recibidas') }}">Solicitudes</a></li>
+            <li><a href="{{ route('refugio.solicitudes.recibidas') }}"><span class="icon is-small"><i class="fas fa-file-alt"></i></span> Solicitudes</a></li>
             <li class="is-active"><a href="#" aria-current="page">Detalle</a></li>
         </ul>
     </nav>
 
-    <h1 class="title">Detalle de Solicitud</h1>
+    <h1 class="title"><span class="icon"><i class="fas fa-file-alt"></i></span> Detalle de Solicitud</h1>
 
     <div class="columns">
         <div class="column is-half">
@@ -21,7 +21,7 @@
                     @if ($solicitud->mascota->fotoPrincipal)
                         <img src="{{ Storage::url($solicitud->mascota->fotoPrincipal->imagen_path) }}" alt="{{ $solicitud->mascota->nombre }}" style="border-radius: 4px;">
                     @else
-                        <img src="/defaults/mascota-placeholder.png" alt="Sin foto" style="border-radius: 4px;">
+                        <img src="/img/default_mascota.png" alt="Sin foto" style="border-radius: 4px;">
                     @endif
                 </figure>
 
@@ -80,7 +80,7 @@
 
         <div class="column is-half">
             <div class="box">
-                <h2 class="subtitle">Adoptante</h2>
+                <h2 class="subtitle"><span class="icon is-small"><i class="fas fa-user"></i></span> Adoptante</h2>
 
                 <p><strong>Nombre:</strong> {{ $solicitud->adoptante->name }}</p>
                 <p><strong>Email:</strong> {{ $solicitud->adoptante->email }}</p>
@@ -105,7 +105,7 @@
 
             @if ($solicitud->cuestionario)
                 <div class="box">
-                    <h2 class="subtitle">Cuestionario</h2>
+                    <h2 class="subtitle"><span class="icon is-small"><i class="fas fa-question-circle"></i></span> Cuestionario</h2>
 
                     <table class="table is-fullwidth is-narrow">
                         <tbody>
@@ -136,6 +136,7 @@
 
             @if ($solicitud->motivo_rechazo)
                 <div class="notification is-danger is-light">
+                    <span class="icon"><i class="fas fa-exclamation-triangle"></i></span>
                     <p class="has-text-weight-bold">Motivo de rechazo:</p>
                     <p>{{ $solicitud->motivo_rechazo }}</p>
                 </div>
@@ -146,9 +147,9 @@
                     <div class="buttons">
                         <form action="{{ route('refugio.solicitudes.aprobar', $solicitud) }}" method="POST" class="mr-2">
                             @csrf
-                            <button type="submit" class="button is-success is-medium">Aprobar</button>
+                            <button type="submit" class="button is-success is-medium"><span class="icon is-small"><i class="fas fa-check"></i></span> Aprobar</button>
                         </form>
-                        <button type="button" class="button is-danger is-medium" onclick="document.getElementById('rechazar').classList.toggle('is-hidden')">Rechazar</button>
+                        <button type="button" class="button is-danger is-medium" onclick="document.getElementById('rechazar').classList.toggle('is-hidden')"><span class="icon is-small"><i class="fas fa-times"></i></span> Rechazar</button>
                     </div>
 
                     <div id="rechazar" class="is-hidden box">
@@ -160,7 +161,7 @@
                                     <textarea class="textarea" name="motivo_rechazo" rows="3" placeholder="Explica el motivo..." required></textarea>
                                 </div>
                             </div>
-                            <button type="submit" class="button is-danger">Confirmar rechazo</button>
+                            <button type="submit" class="button is-danger"><span class="icon is-small"><i class="fas fa-check"></i></span> Confirmar rechazo</button>
                         </form>
                     </div>
                 @else
@@ -172,7 +173,7 @@
 
             @if ($solicitud->status === 'aprobada' && $solicitud->adopcion)
                 <div class="notification is-success is-light">
-                    <p class="has-text-weight-bold">Adopción registrada</p>
+                    <span class="icon"><i class="fas fa-check-circle"></i></span> <p class="has-text-weight-bold">Adopción registrada</p>
                     <p><strong>Aprobada:</strong> {{ $solicitud->adopcion->fecha_aprobacion->format('d/m/Y H:i') }}</p>
                     <p><strong>Status:</strong>
                         <span class="tag @switch($solicitud->adopcion->status)
@@ -192,9 +193,9 @@
                     <div class="buttons">
                         <form action="{{ route('refugio.adopciones.finalizar', $solicitud->adopcion) }}" method="POST" class="mr-2">
                             @csrf
-                            <button type="submit" class="button is-info is-medium">Finalizar adopción</button>
+                            <button type="submit" class="button is-info is-medium"><span class="icon is-small"><i class="fas fa-flag-checkered"></i></span> Finalizar adopción</button>
                         </form>
-                        <button type="button" class="button is-danger is-medium" onclick="document.getElementById('cancel-adopcion').classList.toggle('is-hidden')">Cancelar adopción</button>
+                        <button type="button" class="button is-danger is-medium" onclick="document.getElementById('cancel-adopcion').classList.toggle('is-hidden')"><span class="icon is-small"><i class="fas fa-ban"></i></span> Cancelar adopción</button>
                     </div>
 
                     <div id="cancel-adopcion" class="is-hidden box">
@@ -206,7 +207,7 @@
                                     <textarea class="textarea" name="motivo_cancelacion" rows="3" placeholder="Explica el motivo..." required></textarea>
                                 </div>
                             </div>
-                            <button type="submit" class="button is-danger">Confirmar cancelación</button>
+                            <button type="submit" class="button is-danger"><span class="icon is-small"><i class="fas fa-check"></i></span> Confirmar cancelación</button>
                         </form>
                     </div>
                 @elseif ($solicitud->adopcion->status === 'cancelada' && $solicitud->adopcion->notas)

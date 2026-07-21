@@ -16,6 +16,7 @@ class ShelterController extends Controller
         if (!$shelter) {
             $shelter = Auth::user()->shelter()->create([
                 'name' => Auth::user()->name,
+                'status' => 'pendiente',
             ]);
         }
 
@@ -29,6 +30,7 @@ class ShelterController extends Controller
         if (!$shelter) {
             $shelter = Auth::user()->shelter()->create([
                 'name' => $request->name ?? Auth::user()->name,
+                'status' => 'pendiente',
             ]);
         }
 

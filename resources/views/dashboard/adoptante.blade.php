@@ -3,15 +3,15 @@
 @section('title', 'Dashboard Adoptante')
 
 @section('content')
-    <h1 class="title">Dashboard Adoptante</h1>
+    <h1 class="title"><span class="icon"><i class="fas fa-tachometer-alt"></i></span> Dashboard Adoptante</h1>
 
     <div class="columns">
         <div class="column is-one-quarter">
             <div class="box">
-                <h3 class="subtitle is-5">Filtros</h3>
+                <h3 class="subtitle is-5"><span class="icon is-small"><i class="fas fa-filter"></i></span> Filtros</h3>
                 <form method="GET" action="{{ route('dashboard.adoptante') }}">
                     <div class="field">
-                        <label class="label">Especie</label>
+                        <label class="label"><span class="icon is-small"><i class="fas fa-paw"></i></span> Especie</label>
                         <div class="control">
                             <div class="select is-fullwidth">
                                 <select name="especie">
@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="field">
-                        <label class="label">Sexo</label>
+                        <label class="label"><span class="icon is-small"><i class="fas fa-venus-mars"></i></span> Sexo</label>
                         <div class="control">
                             <div class="select is-fullwidth">
                                 <select name="sexo">
@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="field">
-                        <label class="label">Tamaño</label>
+                        <label class="label"><span class="icon is-small"><i class="fas fa-ruler"></i></span> Tamaño</label>
                         <div class="control">
                             <div class="select is-fullwidth">
                                 <select name="tamano">
@@ -55,7 +55,7 @@
 
                     @if ($ciudades->isNotEmpty())
                         <div class="field">
-                            <label class="label">Ciudad</label>
+                            <label class="label"><span class="icon is-small"><i class="fas fa-city"></i></span> Ciudad</label>
                             <div class="control">
                                 <div class="select is-fullwidth">
                                     <select name="ciudad">
@@ -71,7 +71,7 @@
 
                     @if ($estados->isNotEmpty())
                         <div class="field">
-                            <label class="label">Estado</label>
+                            <label class="label"><span class="icon is-small"><i class="fas fa-map"></i></span> Estado</label>
                             <div class="control">
                                 <div class="select is-fullwidth">
                                     <select name="estado">
@@ -86,23 +86,23 @@
                     @endif
 
                     <div class="field">
-                        <button type="submit" class="button is-primary is-fullwidth">Filtrar</button>
+                        <button type="submit" class="button is-primary is-fullwidth"><span class="icon is-small"><i class="fas fa-filter"></i></span> Filtrar</button>
                     </div>
 
                     @if (request()->anyFilled(['especie', 'sexo', 'tamano', 'ciudad', 'estado']))
                         <div class="field">
-                            <a href="{{ route('dashboard.adoptante') }}" class="button is-light is-fullwidth">Limpiar filtros</a>
+                            <a href="{{ route('dashboard.adoptante') }}" class="button is-light is-fullwidth"><span class="icon is-small"><i class="fas fa-eraser"></i></span> Limpiar filtros</a>
                         </div>
                     @endif
                 </form>
             </div>
 
             <div class="box">
-                <h3 class="subtitle is-5">Menú</h3>
+                <h3 class="subtitle is-5"><span class="icon is-small"><i class="fas fa-bars"></i></span> Menú</h3>
                 <aside class="menu">
                     <ul class="menu-list">
-                        <li><a href="{{ route('favoritos.index') }}">Mis favoritos</a></li>
-                        <li><a href="{{ route('solicitudes.mis-solicitudes') }}">Mis solicitudes</a></li>
+                        <li><a href="{{ route('favoritos.index') }}"><span class="icon is-small"><i class="fas fa-heart"></i></span> Mis favoritos</a></li>
+                        <li><a href="{{ route('solicitudes.mis-solicitudes') }}"><span class="icon is-small"><i class="fas fa-file-alt"></i></span> Mis solicitudes</a></li>
                     </ul>
                 </aside>
             </div>
@@ -123,7 +123,7 @@
                                         @if ($mascota->fotoPrincipal)
                                             <img src="{{ Storage::url($mascota->fotoPrincipal->imagen_path) }}" alt="{{ $mascota->nombre }}">
                                         @else
-                                            <img src="/defaults/mascota-placeholder.png" alt="Sin foto">
+                                            <img src="/img/default_mascota.png" alt="Sin foto">
                                         @endif
                                     </figure>
                                 </div>
@@ -156,7 +156,7 @@
                                     </div>
                                 </div>
                                 <footer class="card-footer">
-                                    <a href="{{ route('mascotas.public.show', $mascota) }}" class="card-footer-item has-text-primary">Ver detalle</a>
+                                    <a href="{{ route('mascotas.public.show', $mascota) }}" class="card-footer-item has-text-primary"><span class="icon is-small"><i class="fas fa-eye"></i></span> Ver detalle</a>
                                 </footer>
                             </div>
                         </div>

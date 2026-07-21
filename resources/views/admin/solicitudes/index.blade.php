@@ -3,7 +3,7 @@
 @section('title', 'Solicitudes')
 
 @section('content')
-    <h1 class="title">Solicitudes</h1>
+    <h1 class="title"><span class="icon"><i class="fas fa-file-alt"></i></span> Solicitudes</h1>
 
     <table class="table is-fullwidth is-hoverable">
         <thead>
@@ -25,7 +25,7 @@
                                     @if ($solicitud->mascota->fotoPrincipal)
                                         <img src="{{ Storage::url($solicitud->mascota->fotoPrincipal->imagen_path) }}" alt="{{ $solicitud->mascota->nombre }}" style="border-radius: 4px; object-fit: cover;">
                                     @else
-                                        <img src="/defaults/mascota-placeholder.png" alt="Sin foto" style="border-radius: 4px;">
+                                        <img src="/img/default_mascota.png" alt="Sin foto" style="border-radius: 4px;">
                                     @endif
                                 </figure>
                             </div>
@@ -35,11 +35,19 @@
                     <td>{{ $solicitud->adoptante->name }}<br><small>{{ $solicitud->adoptante->email }}</small></td>
                     <td>{{ $solicitud->mascota->shelter?->name ?? '—' }}</td>
                     <td>
+                        @php
+                            $iconoStatusSol = match($solicitud->status) {
+                                'pendiente' => 'fa-clock',
+                                'aprobada' => 'fa-check',
+                                'rechazada' => 'fa-times',
+                                default => 'fa-question-circle',
+                            };
+                        @endphp
                         <span class="tag @switch($solicitud->status)
                             @case('pendiente') is-warning @break
                             @case('aprobada') is-success @break
                             @case('rechazada') is-danger @break
-                        @endswitch">{{ ucfirst($solicitud->status) }}</span>
+                        @endswitch"><span class="icon is-small"><i class="fas {{ $iconoStatusSol }}"></i></span> {{ ucfirst($solicitud->status) }}</span>
                     </td>
                     <td>{{ $solicitud->created_at->format('d/m/Y') }}</td>
                 </tr>

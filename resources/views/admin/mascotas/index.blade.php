@@ -3,7 +3,7 @@
 @section('title', 'Mascotas')
 
 @section('content')
-    <h1 class="title">Mascotas</h1>
+    <h1 class="title"><span class="icon"><i class="fas fa-paw"></i></span> Mascotas</h1>
 
     <table class="table is-fullwidth is-hoverable">
         <thead>
@@ -26,7 +26,7 @@
                                     @if ($mascota->fotoPrincipal)
                                         <img src="{{ Storage::url($mascota->fotoPrincipal->imagen_path) }}" alt="{{ $mascota->nombre }}" style="border-radius: 4px; object-fit: cover;">
                                     @else
-                                        <img src="/defaults/mascota-placeholder.png" alt="Sin foto" style="border-radius: 4px;">
+                                        <img src="/img/default_mascota.png" alt="Sin foto" style="border-radius: 4px;">
                                     @endif
                                 </figure>
                             </div>
@@ -37,11 +37,19 @@
                     <td>{{ ucfirst($mascota->especie) }}</td>
                     <td>{{ ucfirst($mascota->sexo) }}</td>
                     <td>
+                        @php
+                            $iconoStatus = match($mascota->status) {
+                                'disponible' => 'fa-check-circle',
+                                'pendiente' => 'fa-clock',
+                                'adoptada' => 'fa-home',
+                                default => 'fa-question-circle',
+                            };
+                        @endphp
                         <span class="tag @switch($mascota->status)
                             @case('disponible') is-success @break
                             @case('pendiente') is-warning @break
                             @case('adoptada') is-info @break
-                        @endswitch">{{ ucfirst($mascota->status) }}</span>
+                        @endswitch"><span class="icon is-small"><i class="fas {{ $iconoStatus }}"></i></span> {{ ucfirst($mascota->status) }}</span>
                     </td>
                     <td>{{ $mascota->created_at->format('d/m/Y') }}</td>
                 </tr>

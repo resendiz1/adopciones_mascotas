@@ -3,12 +3,12 @@
 @section('title', 'Mis Adopciones')
 
 @section('content')
-    <h1 class="title">Mis adopciones</h1>
+    <h1 class="title"><span class="icon"><i class="fas fa-handshake"></i></span> Mis adopciones</h1>
 
     @if ($adopciones->isEmpty())
         <div class="box has-text-centered">
             <p class="subtitle">No tienes adopciones registradas.</p>
-            <a href="{{ route('mascotas.public.index') }}" class="button is-primary">Ver mascotas disponibles</a>
+            <a href="{{ route('mascotas.public.index') }}" class="button is-primary"><span class="icon is-small"><i class="fas fa-paw"></i></span> Ver mascotas disponibles</a>
         </div>
     @else
         <div class="columns is-multiline">
@@ -21,7 +21,7 @@
                                     @if ($adopcion->mascota->fotoPrincipal)
                                         <img src="{{ Storage::url($adopcion->mascota->fotoPrincipal->imagen_path) }}" alt="{{ $adopcion->mascota->nombre }}" style="border-radius: 4px; object-fit: cover;">
                                     @else
-                                        <img src="/defaults/mascota-placeholder.png" alt="Sin foto" style="border-radius: 4px;">
+                                        <img src="/img/default_mascota.png" alt="Sin foto" style="border-radius: 4px;">
                                     @endif
                                 </figure>
                                 <div>
@@ -47,16 +47,16 @@
                             @endphp
                             <div class="buttons mt-3">
                                 @if (!$hasPendingReport)
-                                    <a href="{{ route('adoptante.reportes.create', $adopcion) }}" class="button is-primary is-small">Enviar reporte</a>
+                                    <a href="{{ route('adoptante.reportes.create', $adopcion) }}" class="button is-primary is-small"><span class="icon is-small"><i class="fas fa-paper-plane"></i></span> Enviar reporte</a>
                                 @else
-                                    <button class="button is-small is-warning is-light" disabled>Tienes un reporte pendiente de revisión</button>
+                                    <button class="button is-small is-warning is-light" disabled><span class="icon is-small"><i class="fas fa-clock"></i></span> Tienes un reporte pendiente de revisión</button>
                                 @endif
                             </div>
                         @endif
 
                         @if ($adopcion->reportes->isNotEmpty())
                             <details class="mt-2">
-                                <summary class="has-text-grey is-size-7">Mis reportes ({{ $adopcion->reportes->count() }})</summary>
+                                <summary class="has-text-grey is-size-7"><span class="icon is-small"><i class="fas fa-file-alt"></i></span> Mis reportes ({{ $adopcion->reportes->count() }})</summary>
                                 @foreach ($adopcion->reportes as $reporte)
                                     <div class="box" style="padding: 0.5rem; margin-top: 0.5rem;">
                                         <p class="is-size-7">{{ $reporte->created_at->format('d/m/Y H:i') }}

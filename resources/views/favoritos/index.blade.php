@@ -3,12 +3,12 @@
 @section('title', 'Mis Favoritos')
 
 @section('content')
-    <h1 class="title">Mis Favoritos</h1>
+    <h1 class="title"><span class="icon"><i class="fas fa-heart"></i></span> Mis Favoritos</h1>
 
     @if ($favoritos->isEmpty())
         <div class="box has-text-centered">
             <p class="subtitle">No tienes mascotas favoritas.</p>
-            <a href="{{ route('mascotas.public.index') }}" class="button is-primary">Ver mascotas</a>
+            <a href="{{ route('mascotas.public.index') }}" class="button is-primary"><span class="icon is-small"><i class="fas fa-paw"></i></span> Ver mascotas</a>
         </div>
     @else
         <div class="columns is-multiline">
@@ -21,7 +21,7 @@
                                 @if ($mascota->fotoPrincipal)
                                     <img src="{{ Storage::url($mascota->fotoPrincipal->imagen_path) }}" alt="{{ $mascota->nombre }}">
                                 @else
-                                    <img src="/defaults/mascota-placeholder.png" alt="Sin foto">
+                                    <img src="/img/default_mascota.png" alt="Sin foto">
                                 @endif
                             </figure>
                         </div>
@@ -49,10 +49,10 @@
                             </div>
                         </div>
                         <footer class="card-footer">
-                            <a href="{{ route('mascotas.public.show', $mascota) }}" class="card-footer-item">Ver</a>
+                            <a href="{{ route('mascotas.public.show', $mascota) }}" class="card-footer-item"><span class="icon is-small"><i class="fas fa-eye"></i></span> Ver</a>
                             <form action="{{ route('favoritos.toggle', $mascota) }}" method="POST">
                                 @csrf
-                                <button class="card-footer-item has-text-danger" style="border:none; background:none; cursor:pointer;">Quitar</button>
+                                <button class="card-footer-item has-text-danger" style="border:none; background:none; cursor:pointer;"><span class="icon is-small"><i class="fas fa-heart-broken"></i></span> Quitar</button>
                             </form>
                         </footer>
                     </div>

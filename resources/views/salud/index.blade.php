@@ -10,17 +10,17 @@
         </ul>
     </nav>
 
-    <h1 class="title">Salud de {{ $mascota->nombre }}</h1>
+    <h1 class="title"><span class="icon"><i class="fas fa-heartbeat"></i></span> Salud de {{ $mascota->nombre }}</h1>
 
     <div class="columns">
         <div class="column is-half">
             <div class="box">
                 <div class="level">
                     <div class="level-left">
-                        <h2 class="subtitle">Vacunas</h2>
+                        <h2 class="subtitle"><span class="icon is-small"><i class="fas fa-syringe"></i></span> Vacunas</h2>
                     </div>
                     <div class="level-right">
-                        <button type="button" class="button is-primary is-small" onclick="document.getElementById('add-vacuna').classList.remove('is-hidden')">Agregar vacuna</button>
+                        <button type="button" class="button is-primary is-small" onclick="document.getElementById('add-vacuna').classList.remove('is-hidden')"><span class="icon is-small"><i class="fas fa-plus"></i></span> Agregar vacuna</button>
                     </div>
                 </div>
 
@@ -65,8 +65,8 @@
                             </div>
                         </div>
                         <div class="buttons">
-                            <button type="submit" class="button is-primary">Guardar</button>
-                            <button type="button" class="button is-light" onclick="document.getElementById('add-vacuna').classList.add('is-hidden')">Cancelar</button>
+                            <button type="submit" class="button is-primary"><span class="icon is-small"><i class="fas fa-save"></i></span> Guardar</button>
+                            <button type="button" class="button is-light" onclick="document.getElementById('add-vacuna').classList.add('is-hidden')"><span class="icon is-small"><i class="fas fa-times"></i></span> Cancelar</button>
                         </div>
                     </form>
                 </div>
@@ -78,11 +78,11 @@
                                 <strong>{{ $vacuna->vacuna->nombre }}</strong>
                             </div>
                             <div class="level-right">
-                                <button type="button" class="button is-small is-info is-light" onclick="document.getElementById('edit-vacuna-{{ $vacuna->id }}').classList.toggle('is-hidden')">Editar</button>
+                                <button type="button" class="button is-small is-info is-light" onclick="document.getElementById('edit-vacuna-{{ $vacuna->id }}').classList.toggle('is-hidden')"><span class="icon is-small"><i class="fas fa-edit"></i></span> Editar</button>
                                 <form action="{{ route('refugio.mascotas.vacunas.destroy', [$mascota, $vacuna]) }}" method="POST" class="is-inline" onsubmit="return confirm('¿Eliminar este registro de vacuna?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="button is-small is-danger is-light">Eliminar</button>
+                                    <button type="submit" class="button is-small is-danger is-light"><span class="icon is-small"><i class="fas fa-trash-alt"></i></span> Eliminar</button>
                                 </form>
                             </div>
                         </div>
@@ -137,8 +137,8 @@
                                     </div>
                                 </div>
                                 <div class="buttons">
-                                    <button type="submit" class="button is-primary is-small">Actualizar</button>
-                                    <button type="button" class="button is-light is-small" onclick="document.getElementById('edit-vacuna-{{ $vacuna->id }}').classList.add('is-hidden')">Cancelar</button>
+                                    <button type="submit" class="button is-primary is-small"><span class="icon is-small"><i class="fas fa-save"></i></span> Actualizar</button>
+                                    <button type="button" class="button is-light is-small" onclick="document.getElementById('edit-vacuna-{{ $vacuna->id }}').classList.add('is-hidden')"><span class="icon is-small"><i class="fas fa-times"></i></span> Cancelar</button>
                                 </div>
                             </form>
                         </div>
@@ -153,10 +153,10 @@
             <div class="box">
                 <div class="level">
                     <div class="level-left">
-                        <h2 class="subtitle">Eventos médicos</h2>
+                        <h2 class="subtitle"><span class="icon is-small"><i class="fas fa-notes-medical"></i></span> Eventos médicos</h2>
                     </div>
                     <div class="level-right">
-                        <button type="button" class="button is-primary is-small" onclick="document.getElementById('add-evento').classList.remove('is-hidden')">Agregar evento</button>
+                        <button type="button" class="button is-primary is-small" onclick="document.getElementById('add-evento').classList.remove('is-hidden')"><span class="icon is-small"><i class="fas fa-plus"></i></span> Agregar evento</button>
                     </div>
                 </div>
 
@@ -198,8 +198,8 @@
                             </div>
                         </div>
                         <div class="buttons">
-                            <button type="submit" class="button is-primary">Guardar</button>
-                            <button type="button" class="button is-light" onclick="document.getElementById('add-evento').classList.add('is-hidden')">Cancelar</button>
+                            <button type="submit" class="button is-primary"><span class="icon is-small"><i class="fas fa-save"></i></span> Guardar</button>
+                            <button type="button" class="button is-light" onclick="document.getElementById('add-evento').classList.add('is-hidden')"><span class="icon is-small"><i class="fas fa-times"></i></span> Cancelar</button>
                         </div>
                     </form>
                 </div>
@@ -212,11 +212,11 @@
                                 <span class="tag is-light ml-2">{{ ucfirst($evento->tipo) }}</span>
                             </div>
                             <div class="level-right">
-                                <button type="button" class="button is-small is-info is-light" onclick="document.getElementById('edit-evento-{{ $evento->id }}').classList.toggle('is-hidden')">Editar</button>
+                                <button type="button" class="button is-small is-info is-light" onclick="document.getElementById('edit-evento-{{ $evento->id }}').classList.toggle('is-hidden')"><span class="icon is-small"><i class="fas fa-edit"></i></span> Editar</button>
                                 <form action="{{ route('refugio.mascotas.eventos.destroy', [$mascota, $evento]) }}" method="POST" class="is-inline" onsubmit="return confirm('¿Eliminar este evento?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="button is-small is-danger is-light">Eliminar</button>
+                                    <button type="submit" class="button is-small is-danger is-light"><span class="icon is-small"><i class="fas fa-trash-alt"></i></span> Eliminar</button>
                                 </form>
                             </div>
                         </div>
@@ -265,8 +265,8 @@
                                     </div>
                                 </div>
                                 <div class="buttons">
-                                    <button type="submit" class="button is-primary is-small">Actualizar</button>
-                                    <button type="button" class="button is-light is-small" onclick="document.getElementById('edit-evento-{{ $evento->id }}').classList.add('is-hidden')">Cancelar</button>
+                                    <button type="submit" class="button is-primary is-small"><span class="icon is-small"><i class="fas fa-save"></i></span> Actualizar</button>
+                                    <button type="button" class="button is-light is-small" onclick="document.getElementById('edit-evento-{{ $evento->id }}').classList.add('is-hidden')"><span class="icon is-small"><i class="fas fa-times"></i></span> Cancelar</button>
                                 </div>
                             </form>
                         </div>

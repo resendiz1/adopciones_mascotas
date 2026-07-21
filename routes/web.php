@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -9,9 +10,7 @@ use App\Http\Controllers\Dashboard\RefugioDashboardController;
 use App\Http\Controllers\FavoritoController;
 use App\Http\Controllers\MascotaController;
 use App\Http\Controllers\MascotaPublicController;
-use App\Http\Controllers\ShelterController;
-use App\Http\Controllers\AdopcionController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\SaludController;
 use App\Http\Controllers\SolicitudController;
@@ -27,15 +26,27 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [RegisterController::class, 'store']);
     Route::get('/login', [LoginController::class, 'create'])->name('login');
     Route::post('/login', [LoginController::class, 'store']);
+
+    Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('auth.google');
+    Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
+    Route::post('/auth/google/register', [GoogleAuthController::class, 'register'])->name('auth.google.register');
 });
 
 Route::post('/logout', [LogoutController::class, 'destroy'])->name('logout');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/perfil', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/perfil/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
+    Route::post('/perfil/avatar/remove', [ProfileController::class, 'removeAvatar'])->name('profile.avatar.remove');
+});
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard/admin', AdminDashboardController::class)->name('dashboard.admin');
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/usuarios', [AdminController::class, 'usuarios'])->name('usuarios');
         Route::get('/refugios', [AdminController::class, 'refugios'])->name('refugios');
+        Route::post('/refugios/{shelter}/aprobar', [AdminController::class, 'aprobarRefugio'])->name('refugios.aprobar');
+        Route::post('/refugios/{shelter}/rechazar', [AdminController::class, 'rechazarRefugio'])->name('refugios.rechazar');
         Route::get('/mascotas', [AdminController::class, 'mascotas'])->name('mascotas');
         Route::get('/solicitudes', [AdminController::class, 'solicitudes'])->name('solicitudes');
         Route::get('/adopciones', [AdminController::class, 'adopciones'])->name('adopciones');
@@ -47,34 +58,37 @@ Route::middleware(['auth', 'role:refugio'])->group(function () {
     Route::prefix('refugio')->name('refugio.')->group(function () {
         Route::get('/perfil', [ShelterController::class, 'edit'])->name('shelter.edit');
         Route::put('/perfil', [ShelterController::class, 'update'])->name('shelter.update');
-        Route::get('/mascotas', [MascotaController::class, 'index'])->name('mascotas.index');
-        Route::get('/mascotas/crear', [MascotaController::class, 'create'])->name('mascotas.create');
-        Route::post('/mascotas', [MascotaController::class, 'store'])->name('mascotas.store');
-        Route::get('/mascotas/{mascota}/editar', [MascotaController::class, 'edit'])->name('mascotas.edit');
-        Route::put('/mascotas/{mascota}', [MascotaController::class, 'update'])->name('mascotas.update');
-        Route::delete('/mascotas/{mascota}', [MascotaController::class, 'destroy'])->name('mascotas.destroy');
-        Route::get('/solicitudes', [SolicitudController::class, 'recibidas'])->name('solicitudes.recibidas');
-        Route::get('/solicitudes/{solicitud}', [SolicitudController::class, 'detalle'])->name('solicitudes.detalle');
-        Route::post('/solicitudes/{solicitud}/aprobar', [SolicitudController::class, 'aprobar'])->name('solicitudes.aprobar');
-        Route::post('/solicitudes/{solicitud}/rechazar', [SolicitudController::class, 'rechazar'])->name('solicitudes.rechazar');
-        Route::get('/adopciones', [AdopcionController::class, 'index'])->name('adopciones.index');
-        Route::post('/adopciones/{adopcion}/finalizar', [AdopcionController::class, 'finalizar'])->name('adopciones.finalizar');
-        Route::post('/adopciones/{adopcion}/cancelar', [AdopcionController::class, 'cancelar'])->name('adopciones.cancelar');
-        Route::get('/mascotas/{mascota}/salud', [SaludController::class, 'index'])->name('mascotas.salud');
-        Route::post('/mascotas/{mascota}/vacunas', [SaludController::class, 'storeVacuna'])->name('mascotas.vacunas.store');
-        Route::put('/mascotas/{mascota}/vacunas/{vacuna}', [SaludController::class, 'updateVacuna'])->name('mascotas.vacunas.update');
-        Route::delete('/mascotas/{mascota}/vacunas/{vacuna}', [SaludController::class, 'destroyVacuna'])->name('mascotas.vacunas.destroy');
-        Route::post('/mascotas/{mascota}/eventos', [SaludController::class, 'storeEvento'])->name('mascotas.eventos.store');
-        Route::put('/mascotas/{mascota}/eventos/{evento}', [SaludController::class, 'updateEvento'])->name('mascotas.eventos.update');
-        Route::delete('/mascotas/{mascota}/eventos/{evento}', [SaludController::class, 'destroyEvento'])->name('mascotas.eventos.destroy');
-        Route::get('/adopciones/{adopcion}/visitas', [VisitaController::class, 'index'])->name('adopciones.visitas.index');
-        Route::post('/adopciones/{adopcion}/visitas', [VisitaController::class, 'store'])->name('adopciones.visitas.store');
-        Route::put('/adopciones/{adopcion}/visitas/{visita}', [VisitaController::class, 'update'])->name('adopciones.visitas.update');
-        Route::delete('/adopciones/{adopcion}/visitas/{visita}', [VisitaController::class, 'destroy'])->name('adopciones.visitas.destroy');
-        Route::post('/visitas/{visita}/fotos', [VisitaController::class, 'storeFoto'])->name('visitas.fotos.store');
-        Route::delete('/visitas/{visita}/fotos/{foto}', [VisitaController::class, 'destroyFoto'])->name('visitas.fotos.destroy');
-        Route::get('/adopciones/{adopcion}/reportes', [ReporteController::class, 'index'])->name('adopciones.reportes.index');
-        Route::put('/adopciones/{adopcion}/reportes/{reporte}', [ReporteController::class, 'update'])->name('adopciones.reportes.update');
+
+        Route::middleware('shelter.approved')->group(function () {
+            Route::get('/mascotas', [MascotaController::class, 'index'])->name('mascotas.index');
+            Route::get('/mascotas/crear', [MascotaController::class, 'create'])->name('mascotas.create');
+            Route::post('/mascotas', [MascotaController::class, 'store'])->name('mascotas.store');
+            Route::get('/mascotas/{mascota}/editar', [MascotaController::class, 'edit'])->name('mascotas.edit');
+            Route::put('/mascotas/{mascota}', [MascotaController::class, 'update'])->name('mascotas.update');
+            Route::delete('/mascotas/{mascota}', [MascotaController::class, 'destroy'])->name('mascotas.destroy');
+            Route::get('/solicitudes', [SolicitudController::class, 'recibidas'])->name('solicitudes.recibidas');
+            Route::get('/solicitudes/{solicitud}', [SolicitudController::class, 'detalle'])->name('solicitudes.detalle');
+            Route::post('/solicitudes/{solicitud}/aprobar', [SolicitudController::class, 'aprobar'])->name('solicitudes.aprobar');
+            Route::post('/solicitudes/{solicitud}/rechazar', [SolicitudController::class, 'rechazar'])->name('solicitudes.rechazar');
+            Route::get('/adopciones', [AdopcionController::class, 'index'])->name('adopciones.index');
+            Route::post('/adopciones/{adopcion}/finalizar', [AdopcionController::class, 'finalizar'])->name('adopciones.finalizar');
+            Route::post('/adopciones/{adopcion}/cancelar', [AdopcionController::class, 'cancelar'])->name('adopciones.cancelar');
+            Route::get('/mascotas/{mascota}/salud', [SaludController::class, 'index'])->name('mascotas.salud');
+            Route::post('/mascotas/{mascota}/vacunas', [SaludController::class, 'storeVacuna'])->name('mascotas.vacunas.store');
+            Route::put('/mascotas/{mascota}/vacunas/{vacuna}', [SaludController::class, 'updateVacuna'])->name('mascotas.vacunas.update');
+            Route::delete('/mascotas/{mascota}/vacunas/{vacuna}', [SaludController::class, 'destroyVacuna'])->name('mascotas.vacunas.destroy');
+            Route::post('/mascotas/{mascota}/eventos', [SaludController::class, 'storeEvento'])->name('mascotas.eventos.store');
+            Route::put('/mascotas/{mascota}/eventos/{evento}', [SaludController::class, 'updateEvento'])->name('mascotas.eventos.update');
+            Route::delete('/mascotas/{mascota}/eventos/{evento}', [SaludController::class, 'destroyEvento'])->name('mascotas.eventos.destroy');
+            Route::get('/adopciones/{adopcion}/visitas', [VisitaController::class, 'index'])->name('adopciones.visitas.index');
+            Route::post('/adopciones/{adopcion}/visitas', [VisitaController::class, 'store'])->name('adopciones.visitas.store');
+            Route::put('/adopciones/{adopcion}/visitas/{visita}', [VisitaController::class, 'update'])->name('adopciones.visitas.update');
+            Route::delete('/adopciones/{adopcion}/visitas/{visita}', [VisitaController::class, 'destroy'])->name('adopciones.visitas.destroy');
+            Route::post('/visitas/{visita}/fotos', [VisitaController::class, 'storeFoto'])->name('visitas.fotos.store');
+            Route::delete('/visitas/{visita}/fotos/{foto}', [VisitaController::class, 'destroyFoto'])->name('visitas.fotos.destroy');
+            Route::get('/adopciones/{adopcion}/reportes', [ReporteController::class, 'index'])->name('adopciones.reportes.index');
+            Route::put('/adopciones/{adopcion}/reportes/{reporte}', [ReporteController::class, 'update'])->name('adopciones.reportes.update');
+        });
     });
 });
 

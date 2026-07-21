@@ -5,12 +5,12 @@
 @section('content')
     <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
-            <li><a href="{{ route('refugio.adopciones.index') }}">Adopciones</a></li>
+            <li><a href="{{ route('refugio.adopciones.index') }}"><span class="icon is-small"><i class="fas fa-handshake"></i></span> Adopciones</a></li>
             <li class="is-active"><a href="#" aria-current="page">Visitas de {{ $adopcion->mascota->nombre }}</a></li>
         </ul>
     </nav>
 
-    <h1 class="title">Visitas de seguimiento</h1>
+    <h1 class="title"><span class="icon"><i class="fas fa-calendar-check"></i></span> Visitas de seguimiento</h1>
 
     <div class="box mb-4">
         <p><strong>Mascota:</strong> {{ $adopcion->mascota->nombre }}</p>
@@ -24,7 +24,7 @@
         </p>
     </div>
 
-    <button type="button" class="button is-primary mb-4" onclick="document.getElementById('add-visita').classList.remove('is-hidden')">Crear visita</button>
+    <button type="button" class="button is-primary mb-4" onclick="document.getElementById('add-visita').classList.remove('is-hidden')"><span class="icon is-small"><i class="fas fa-plus"></i></span> Crear visita</button>
 
     <div id="add-visita" class="is-hidden box mb-4">
         <form action="{{ route('refugio.adopciones.visitas.store', $adopcion) }}" method="POST">
@@ -52,8 +52,8 @@
                 </div>
             </div>
             <div class="buttons">
-                <button type="submit" class="button is-primary">Guardar</button>
-                <button type="button" class="button is-light" onclick="document.getElementById('add-visita').classList.add('is-hidden')">Cancelar</button>
+                <button type="submit" class="button is-primary"><span class="icon is-small"><i class="fas fa-save"></i></span> Guardar</button>
+                <button type="button" class="button is-light" onclick="document.getElementById('add-visita').classList.add('is-hidden')"><span class="icon is-small"><i class="fas fa-times"></i></span> Cancelar</button>
             </div>
         </form>
     </div>
@@ -73,11 +73,11 @@
                         @endswitch">{{ ucfirst($visita->status) }}</span>
                     </div>
                     <div class="level-right">
-                        <button type="button" class="button is-small is-info is-light" onclick="document.getElementById('edit-visita-{{ $visita->id }}').classList.toggle('is-hidden')">Editar</button>
+                        <button type="button" class="button is-small is-info is-light" onclick="document.getElementById('edit-visita-{{ $visita->id }}').classList.toggle('is-hidden')"><span class="icon is-small"><i class="fas fa-edit"></i></span> Editar</button>
                         <form action="{{ route('refugio.adopciones.visitas.destroy', [$adopcion, $visita]) }}" method="POST" class="is-inline" onsubmit="return confirm('¿Eliminar esta visita?')">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="button is-small is-danger is-light">Eliminar</button>
+                            <button type="submit" class="button is-small is-danger is-light"><span class="icon is-small"><i class="fas fa-trash-alt"></i></span> Eliminar</button>
                         </form>
                     </div>
                 </div>
@@ -121,14 +121,14 @@
                             </div>
                         </div>
                         <div class="buttons">
-                            <button type="submit" class="button is-primary is-small">Actualizar</button>
-                            <button type="button" class="button is-light is-small" onclick="document.getElementById('edit-visita-{{ $visita->id }}').classList.add('is-hidden')">Cancelar</button>
+                            <button type="submit" class="button is-primary is-small"><span class="icon is-small"><i class="fas fa-save"></i></span> Actualizar</button>
+                            <button type="button" class="button is-light is-small" onclick="document.getElementById('edit-visita-{{ $visita->id }}').classList.add('is-hidden')"><span class="icon is-small"><i class="fas fa-times"></i></span> Cancelar</button>
                         </div>
                     </form>
                 </div>
 
                     <div class="mt-3">
-                        <h5 class="subtitle is-7">Fotos / Evidencia</h5>
+                        <h5 class="subtitle is-7"><span class="icon is-small"><i class="fas fa-camera"></i></span> Fotos / Evidencia</h5>
                         <form action="{{ route('refugio.visitas.fotos.store', $visita) }}" method="POST" enctype="multipart/form-data" class="mb-2 box" style="padding: 0.75rem;">
                             @csrf
                             <div class="field">
@@ -149,7 +149,7 @@
                                 <img src="" alt="Preview" style="border-radius: 4px; object-fit: cover;">
                             </figure>
                             <div class="field">
-                                <button type="submit" class="button is-small is-primary">Subir</button>
+                                <button type="submit" class="button is-small is-primary"><span class="icon is-small"><i class="fas fa-upload"></i></span> Subir</button>
                             </div>
                         </form>
                         <div class="columns is-multiline is-variable is-2">

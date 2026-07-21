@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Shelter extends Model
 {
-    protected $fillable = ['user_id', 'name', 'description', 'address', 'ciudad', 'estado', 'phone'];
+    protected $fillable = ['user_id', 'name', 'description', 'address', 'ciudad', 'estado', 'phone', 'status'];
+
+    protected function casts(): array
+    {
+        return [
+            'status' => 'string',
+        ];
+    }
 
     public function user(): BelongsTo
     {

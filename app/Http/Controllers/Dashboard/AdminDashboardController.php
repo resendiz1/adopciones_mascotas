@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Adopcion;
 use App\Models\Mascota;
+use App\Models\Shelter;
 use App\Models\SolicitudAdopcion;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -25,6 +26,7 @@ class AdminDashboardController extends Controller
         $solicitudesAprobadas = SolicitudAdopcion::where('status', 'aprobada')->count();
         $solicitudesRechazadas = SolicitudAdopcion::where('status', 'rechazada')->count();
         $totalAdopciones = Adopcion::count();
+        $refugiosPendientes = Shelter::where('status', 'pendiente')->count();
 
         $adopcionesPorMes = Adopcion::select(
             DB::raw("DATE_FORMAT(fecha_aprobacion, '%Y-%m') as mes"),
@@ -54,7 +56,7 @@ class AdminDashboardController extends Controller
             'totalUsers', 'totalAdoptantes', 'totalRefugios',
             'totalMascotas', 'mascotasDisponibles', 'mascotasPendientes', 'mascotasAdoptadas',
             'solicitudesPendientes', 'solicitudesAprobadas', 'solicitudesRechazadas',
-            'totalAdopciones', 'adopcionesPorMes', 'refugiosTop', 'mascotasPorEspecie'
+            'totalAdopciones', 'refugiosPendientes', 'adopcionesPorMes', 'refugiosTop', 'mascotasPorEspecie'
         ));
     }
 }

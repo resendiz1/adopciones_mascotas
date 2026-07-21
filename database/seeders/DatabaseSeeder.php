@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             'ciudad' => 'Ciudad de México',
             'estado' => 'CDMX',
             'phone' => '555-1234',
+            'status' => 'aprobado',
         ]);
 
         Mascota::create([

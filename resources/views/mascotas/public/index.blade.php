@@ -3,15 +3,15 @@
 @section('title', 'Mascotas en adopción')
 
 @section('content')
-    <h1 class="title">Mascotas en adopción</h1>
+    <h1 class="title"><span class="icon"><i class="fas fa-paw"></i></span> Mascotas en adopción</h1>
 
     <div class="columns">
         <div class="column is-one-quarter">
             <div class="box">
-                <h3 class="subtitle is-5">Filtros</h3>
+                <h3 class="subtitle is-5"><span class="icon is-small"><i class="fas fa-filter"></i></span> Filtros</h3>
                 <form method="GET" action="{{ route('mascotas.public.index') }}">
                     <div class="field">
-                        <label class="label">Especie</label>
+                        <label class="label"><span class="icon is-small"><i class="fas fa-paw"></i></span> Especie</label>
                         <div class="control">
                             <div class="select is-fullwidth">
                                 <select name="especie">
@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="field">
-                        <label class="label">Sexo</label>
+                        <label class="label"><span class="icon is-small"><i class="fas fa-venus-mars"></i></span> Sexo</label>
                         <div class="control">
                             <div class="select is-fullwidth">
                                 <select name="sexo">
@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="field">
-                        <label class="label">Tamaño</label>
+                        <label class="label"><span class="icon is-small"><i class="fas fa-ruler"></i></span> Tamaño</label>
                         <div class="control">
                             <div class="select is-fullwidth">
                                 <select name="tamano">
@@ -55,7 +55,7 @@
 
                     @if ($ciudades->isNotEmpty())
                         <div class="field">
-                            <label class="label">Ciudad</label>
+                            <label class="label"><span class="icon is-small"><i class="fas fa-city"></i></span> Ciudad</label>
                             <div class="control">
                                 <div class="select is-fullwidth">
                                     <select name="ciudad">
@@ -71,7 +71,7 @@
 
                     @if ($estados->isNotEmpty())
                         <div class="field">
-                            <label class="label">Estado</label>
+                            <label class="label"><span class="icon is-small"><i class="fas fa-map"></i></span> Estado</label>
                             <div class="control">
                                 <div class="select is-fullwidth">
                                     <select name="estado">
@@ -86,12 +86,12 @@
                     @endif
 
                     <div class="field">
-                        <button type="submit" class="button is-primary is-fullwidth">Filtrar</button>
+                        <button type="submit" class="button is-primary is-fullwidth"><span class="icon is-small"><i class="fas fa-filter"></i></span> Filtrar</button>
                     </div>
 
                     @if (request()->anyFilled(['especie', 'sexo', 'tamano', 'ciudad', 'estado']))
                         <div class="field">
-                            <a href="{{ route('mascotas.public.index') }}" class="button is-light is-fullwidth">Limpiar filtros</a>
+                            <a href="{{ route('mascotas.public.index') }}" class="button is-light is-fullwidth"><span class="icon is-small"><i class="fas fa-eraser"></i></span> Limpiar filtros</a>
                         </div>
                     @endif
                 </form>
@@ -113,7 +113,7 @@
                                         @if ($mascota->fotoPrincipal)
                                             <img src="{{ Storage::url($mascota->fotoPrincipal->imagen_path) }}" alt="{{ $mascota->nombre }}">
                                         @else
-                                            <img src="/defaults/mascota-placeholder.png" alt="Sin foto">
+                                            <img src="/img/default_mascota.png" alt="Sin foto">
                                         @endif
                                     </figure>
                                 </div>
@@ -138,7 +138,7 @@
 
                                         @if ($mascota->shelter->ciudad || $mascota->shelter->estado)
                                             <p class="is-size-7 has-text-grey">
-                                                📍 {{ $mascota->shelter->ciudad }}{{ $mascota->shelter->ciudad && $mascota->shelter->estado ? ', ' : '' }}{{ $mascota->shelter->estado }}
+                                                <span class="icon is-small"><i class="fas fa-map-marker-alt"></i></span> {{ $mascota->shelter->ciudad }}{{ $mascota->shelter->ciudad && $mascota->shelter->estado ? ', ' : '' }}{{ $mascota->shelter->estado }}
                                             </p>
                                         @endif
 
@@ -146,7 +146,7 @@
                                     </div>
                                 </div>
                                 <footer class="card-footer">
-                                    <a href="{{ route('mascotas.public.show', $mascota) }}" class="card-footer-item has-text-primary">Ver más</a>
+                                    <a href="{{ route('mascotas.public.show', $mascota) }}" class="card-footer-item has-text-primary"><span class="icon is-small"><i class="fas fa-eye"></i></span> Ver más</a>
                                 </footer>
                             </div>
                         </div>

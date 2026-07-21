@@ -3,7 +3,7 @@
 @section('title', 'Registrar Mascota')
 
 @section('content')
-    <h1 class="title">Registrar Mascota</h1>
+    <h1 class="title"><span class="icon"><i class="fas fa-plus-circle"></i></span> Registrar Mascota</h1>
 
     <div class="columns">
         <div class="column is-two-thirds">
@@ -11,7 +11,7 @@
                 @csrf
 
                 <div class="box">
-                    <h2 class="subtitle">Información básica</h2>
+                    <h2 class="subtitle"><span class="icon is-small"><i class="fas fa-info-circle"></i></span> Información básica</h2>
 
                     <div class="field">
                         <label class="label" for="nombre">Nombre <span class="has-text-danger">*</span></label>
@@ -101,7 +101,7 @@
                 </div>
 
                 <div class="box">
-                    <h2 class="subtitle">Descripción y estado</h2>
+                    <h2 class="subtitle"><span class="icon is-small"><i class="fas fa-file-alt"></i></span> Descripción y estado</h2>
 
                     <div class="field">
                         <label class="label" for="descripcion">Descripción <span class="has-text-danger">*</span></label>
@@ -144,7 +144,7 @@
                 </div>
 
                 <div class="box">
-                    <h2 class="subtitle">Foto</h2>
+                    <h2 class="subtitle"><span class="icon is-small"><i class="fas fa-camera"></i></span> Foto</h2>
 
                     <div class="field">
                         <div class="file is-boxed">
@@ -160,8 +160,8 @@
 
                 <div class="field">
                     <div class="control">
-                        <button type="submit" class="button is-primary">Guardar mascota</button>
-                        <a href="{{ route('refugio.mascotas.index') }}" class="button is-light">Cancelar</a>
+                        <button type="submit" class="button is-primary"><span class="icon is-small"><i class="fas fa-save"></i></span> Guardar mascota</button>
+                        <a href="{{ route('refugio.mascotas.index') }}" class="button is-light"><span class="icon is-small"><i class="fas fa-times"></i></span> Cancelar</a>
                     </div>
                 </div>
             </form>

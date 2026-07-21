@@ -3,7 +3,7 @@
 @section('title', 'Adopciones')
 
 @section('content')
-    <h1 class="title">Adopciones</h1>
+    <h1 class="title"><span class="icon"><i class="fas fa-handshake"></i></span> Adopciones</h1>
 
     @if ($adopciones->isEmpty())
         <div class="box has-text-centered">
@@ -31,7 +31,7 @@
                                         @if ($adopcion->mascota->fotoPrincipal)
                                             <img src="{{ Storage::url($adopcion->mascota->fotoPrincipal->imagen_path) }}" alt="{{ $adopcion->mascota->nombre }}" style="border-radius: 4px;">
                                         @else
-                                            <img src="/defaults/mascota-placeholder.png" alt="Sin foto" style="border-radius: 4px;">
+                                            <img src="/img/default_mascota.png" alt="Sin foto" style="border-radius: 4px;">
                                         @endif
                                     </figure>
                                 </div>
@@ -53,8 +53,8 @@
                         </td>
                         <td>
                             <div class="buttons are-small">
-                                <a href="{{ route('refugio.adopciones.visitas.index', $adopcion) }}" class="button is-small is-info is-light">Visitas</a>
-                                <a href="{{ route('refugio.adopciones.reportes.index', $adopcion) }}" class="button is-small is-warning is-light">Reportes</a>
+                                <a href="{{ route('refugio.adopciones.visitas.index', $adopcion) }}" class="button is-small is-info is-light"><span class="icon is-small"><i class="fas fa-calendar-check"></i></span> Visitas</a>
+                                <a href="{{ route('refugio.adopciones.reportes.index', $adopcion) }}" class="button is-small is-warning is-light"><span class="icon is-small"><i class="fas fa-file-alt"></i></span> Reportes</a>
                             </div>
                         </td>
                         <td>
@@ -62,9 +62,9 @@
                                 <div class="buttons are-small">
                                     <form action="{{ route('refugio.adopciones.finalizar', $adopcion) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="button is-info is-small">Finalizar</button>
+                                        <button type="submit" class="button is-info is-small"><span class="icon is-small"><i class="fas fa-flag-checkered"></i></span> Finalizar</button>
                                     </form>
-                                    <button type="button" class="button is-danger is-small" onclick="document.getElementById('cancel-{{ $adopcion->id }}').classList.toggle('is-hidden')">Cancelar</button>
+                                    <button type="button" class="button is-danger is-small" onclick="document.getElementById('cancel-{{ $adopcion->id }}').classList.toggle('is-hidden')"><span class="icon is-small"><i class="fas fa-ban"></i></span> Cancelar</button>
                                 </div>
                                 <div id="cancel-{{ $adopcion->id }}" class="is-hidden box" style="margin-top: 0.5rem;">
                                     <form action="{{ route('refugio.adopciones.cancelar', $adopcion) }}" method="POST">
@@ -75,7 +75,7 @@
                                                 <textarea class="textarea" name="motivo_cancelacion" rows="2" placeholder="Explica el motivo..." required></textarea>
                                             </div>
                                         </div>
-                                        <button type="submit" class="button is-danger is-small">Confirmar cancelación</button>
+                                        <button type="submit" class="button is-danger is-small"><span class="icon is-small"><i class="fas fa-check"></i></span> Confirmar cancelación</button>
                                     </form>
                                 </div>
                             @elseif ($adopcion->status === 'cancelada' && $adopcion->notas)

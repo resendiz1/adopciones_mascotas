@@ -3,7 +3,7 @@
 @section('title', 'Solicitudes Recibidas')
 
 @section('content')
-    <h1 class="title">Solicitudes Recibidas</h1>
+    <h1 class="title"><span class="icon"><i class="fas fa-file-alt"></i></span> Solicitudes Recibidas</h1>
 
     @if ($solicitudes->isEmpty())
         <div class="box has-text-centered">
@@ -31,7 +31,7 @@
                                         @if ($solicitud->mascota->fotoPrincipal)
                                             <img src="{{ Storage::url($solicitud->mascota->fotoPrincipal->imagen_path) }}" alt="{{ $solicitud->mascota->nombre }}" style="border-radius: 4px;">
                                         @else
-                                            <img src="/defaults/mascota-placeholder.png" alt="Sin foto" style="border-radius: 4px;">
+                                            <img src="/img/default_mascota.png" alt="Sin foto" style="border-radius: 4px;">
                                         @endif
                                     </figure>
                                 </div>
@@ -53,7 +53,7 @@
                             </span>
                         </td>
                         <td>
-                            <a href="{{ route('refugio.solicitudes.detalle', $solicitud) }}" class="button is-small is-info">Ver detalle</a>
+                            <a href="{{ route('refugio.solicitudes.detalle', $solicitud) }}" class="button is-small is-info"><span class="icon is-small"><i class="fas fa-eye"></i></span> Ver detalle</a>
                         </td>
                     </tr>
                 @endforeach

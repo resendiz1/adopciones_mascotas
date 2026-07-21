@@ -42,6 +42,7 @@ Multi-phase Laravel adoption platform with auth/roles, mascotas CRUD, public cat
 5. Navbar: refugio sees Solicitudes + Adopciones links; adoptante sees Mis adopciones
 6. Post-adopción: visitas de seguimiento con fotos, reportes del adoptante
 7. Panel admin completo: dashboard con estadísticas, listados de usuarios/refugios/mascotas/solicitudes/adopciones
+8. Aprobación de refugios: admin autoriza perfiles de refugio (status pendiente/aprobado/rechazado), shelter pendiente no puede gestionar mascotas/solicitudes/adopciones hasta ser aprobado
 
 ## Last Task
-- Fixed `DATE_FORMAT` (MySQL) in admin dashboard stats query (was using SQLite `strftime`)
+- Implemented refugio approval flow: `status` column on shelters table, middleware `shelter.approved`, admin approve/reject, notifications on refugio dashboard

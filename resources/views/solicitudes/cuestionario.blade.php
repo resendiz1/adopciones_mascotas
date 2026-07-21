@@ -3,7 +3,7 @@
 @section('title', 'Cuestionario de adopción')
 
 @section('content')
-    <h1 class="title">Cuestionario de adopción</h1>
+    <h1 class="title"><span class="icon"><i class="fas fa-question-circle"></i></span> Cuestionario de adopción</h1>
 
     <div class="box">
         <p><strong>Mascota:</strong> {{ $solicitud->mascota->nombre }}</p>
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="field">
-                    <button type="submit" class="button is-primary">Enviar cuestionario</button>
+                    <button type="submit" class="button is-primary"><span class="icon is-small"><i class="fas fa-paper-plane"></i></span> Enviar cuestionario</button>
                 </div>
             </form>
         </div>

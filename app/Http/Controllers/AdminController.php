@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RefugioAprobado;
+use App\Mail\RefugioRechazado;
 use App\Models\Adopcion;
 use App\Models\Mascota;
 use App\Models\Shelter;
 use App\Models\SolicitudAdopcion;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class AdminController extends Controller
@@ -43,5 +48,25 @@ class AdminController extends Controller
             ->latest()
             ->get();
         return view('admin.adopciones.index', compact('adopciones'));
+    }
+
+    public function aprobarRefugio(Request $request, Shelter $shelter): RedirectResponse
+    {
+        $shelter->update(['status' => 'aprobado']);
+
+        Mail::to($shelter->user->email)->send(new RefugioAprobado($shelter));
+
+        return redirect()->route('admin.refugios')
+            ->with('success', "Refugio \"{$shelter->name}\" aprobado correctamente.");
+    }
+
+    public function rechazarRefugio(Request $request, Shelter $shelter): RedirectResponse
+    {
+        $shelter->update(['status' => 'rechazado']);
+
+        Mail::to($shelter->user->email)->send(new RefugioRechazado($shelter));
+
+        return redirect()->route('admin.refugios')
+            ->with('success', "Refugio \"{$shelter->name}\" rechazado.");
     }
 }

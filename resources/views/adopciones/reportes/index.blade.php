@@ -5,12 +5,12 @@
 @section('content')
     <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
-            <li><a href="{{ route('refugio.adopciones.index') }}">Adopciones</a></li>
+            <li><a href="{{ route('refugio.adopciones.index') }}"><span class="icon is-small"><i class="fas fa-handshake"></i></span> Adopciones</a></li>
             <li class="is-active"><a href="#" aria-current="page">Reportes de {{ $adopcion->mascota->nombre }}</a></li>
         </ul>
     </nav>
 
-    <h1 class="title">Reportes de adopción</h1>
+    <h1 class="title"><span class="icon"><i class="fas fa-file-alt"></i></span> Reportes de adopción</h1>
 
     <div class="box mb-4">
         <p><strong>Mascota:</strong> {{ $adopcion->mascota->nombre }}</p>
@@ -39,7 +39,7 @@
                         @endswitch">{{ ucfirst($reporte->status) }}</span>
                     </div>
                     <div class="level-right">
-                        <button type="button" class="button is-small is-info is-light" onclick="document.getElementById('edit-reporte-{{ $reporte->id }}').classList.toggle('is-hidden')">Revisar</button>
+                        <button type="button" class="button is-small is-info is-light" onclick="document.getElementById('edit-reporte-{{ $reporte->id }}').classList.toggle('is-hidden')"><span class="icon is-small"><i class="fas fa-eye"></i></span> Revisar</button>
                     </div>
                 </div>
 
@@ -74,8 +74,8 @@
                             </div>
                         </div>
                         <div class="buttons">
-                            <button type="submit" class="button is-primary is-small">Actualizar</button>
-                            <button type="button" class="button is-light is-small" onclick="document.getElementById('edit-reporte-{{ $reporte->id }}').classList.add('is-hidden')">Cancelar</button>
+                            <button type="submit" class="button is-primary is-small"><span class="icon is-small"><i class="fas fa-save"></i></span> Actualizar</button>
+                            <button type="button" class="button is-light is-small" onclick="document.getElementById('edit-reporte-{{ $reporte->id }}').classList.add('is-hidden')"><span class="icon is-small"><i class="fas fa-times"></i></span> Cancelar</button>
                         </div>
                     </form>
                 </div>
